@@ -1,6 +1,8 @@
 package com.server;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Collections;
@@ -16,6 +18,7 @@ public class ConnectionService extends Thread {
     private final Set<User> userSet;
 
     public ConnectionService(int port, int maxSocketAmount, MessagingService messagingService) throws IOException {
+
         this.maxSocketAmount = maxSocketAmount;
         this.serverSocket = new ServerSocket(port);
         this.messagingService = messagingService;
@@ -26,7 +29,9 @@ public class ConnectionService extends Thread {
         if (userSet.size() < maxSocketAmount) {
             Socket socket = serverSocket.accept();
             System.out.println("\n>>USER " + socket.getRemoteSocketAddress() + " CONNECTED<<\n");
-            User tempUser = new User("USER" + (++connectionsNumber),socket);
+            User tempUser = new User(new BufferedReader(new InputStreamReader(socket
+                    .getInputStream())).readLine(), socket);
+
             userSet.add(tempUser);
             messagingService.addUser(tempUser);
         }

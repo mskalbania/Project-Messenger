@@ -44,7 +44,7 @@ public class MessagingService extends Thread {
                         tempWriter = user.getWriter();
                         tempWriter.write(tempMessage.getSender() + ": " + tempMessage.getContent() + "\n");
                         tempWriter.flush();
-                    } catch (IOException e){
+                    } catch (IOException e) {
                         System.out.println("\n>>USER " + user.getUserSocket().getRemoteSocketAddress() + " DISCONNECTED<<\n");
                         disconnectedUsers.add(user);
                     }
