@@ -1,9 +1,12 @@
 package com.client;
 
-public class Main {
+public class RunClient {
     public static void main(String[] args) {
 
-        ConnectionService connectionService  = new ConnectionService(8080, "127.0.0.1");
+        String ip = args[0];
+        int port = Integer.parseInt(args[1]);
+
+        ConnectionService connectionService  = new ConnectionService(port, ip);
         connectionService.establishConnection();
 
         MessagingService messagingService = new MessagingService(connectionService);

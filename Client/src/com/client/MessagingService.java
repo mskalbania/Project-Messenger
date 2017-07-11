@@ -8,12 +8,14 @@ import java.util.Scanner;
 
 public class MessagingService {
 
+    private ConnectionService connectionService;
     private Scanner scanner;
     private BufferedReader bufferedReader;
     private OutputStreamWriter outputStreamWriter;
 
     public MessagingService(ConnectionService connectionService) {
         try {
+            this.connectionService = connectionService;
             this.bufferedReader = new BufferedReader(new InputStreamReader(connectionService.getClientSocket().getInputStream()));
             this.outputStreamWriter = new OutputStreamWriter(connectionService.getClientSocket().getOutputStream());
             this.scanner = new Scanner(System.in);
@@ -62,7 +64,13 @@ public class MessagingService {
         public void run() {
             while (true) {
                 try {
-                    System.out.println(readLineFromServer());
+                    String read = readLineFromServer();
+                    if (read != null) {
+                        System.out.println(read);
+                    }else {
+                        System.out.println("DISCONNECTED FROM SERVER. EXITING...");
+                        System.exit(0);
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

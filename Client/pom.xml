@@ -15,7 +15,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>com.client.Main</mainClass>
+                            <mainClass>com.client.RunClient</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

@@ -12,13 +12,11 @@ import java.util.Set;
 public class ConnectionService extends Thread {
 
     private final MessagingService messagingService;
-    private int connectionsNumber = 0;
     private final int maxSocketAmount;
     private final ServerSocket serverSocket;
     private final Set<User> userSet;
 
     public ConnectionService(int port, int maxSocketAmount, MessagingService messagingService) throws IOException {
-
         this.maxSocketAmount = maxSocketAmount;
         this.serverSocket = new ServerSocket(port);
         this.messagingService = messagingService;
